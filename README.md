@@ -61,5 +61,5 @@ $ grunt
 Output in `build/inform.js`.
 
 ## Including Inform in your code
-Go to [build/inform.min.js](here), click Raw, then copy the whole thing
+Go to [here](https://raw.githubusercontent.com/sliceofcode/inform/master/build/inform.min.js), click Raw, then copy the whole thing
 and paste it **in the beginning of your script.**
