@@ -23,6 +23,7 @@ function newLevel() {
         if (result == 1) {
             clientMessage('--> succeed');
         } else { clientMessage('--> fail'); }
+        clientMessage('--> should be true!!! ' + (a === 1));
         clientMessage('--> defined test:');
         var def = informScript.defined('newLevel');
         if (def) {
