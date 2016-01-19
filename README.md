@@ -53,13 +53,13 @@ inform.scripts().find('other_script.js').defined('newLevel');
 That code checks if `newLevel` is present in `other_script.js`.
 
 ## Building
-Make sure that you have `npm`, `node`, and Grunt installed.
+Make sure that you have `npm`, `node`, and Grunt installed. If you just want to use Inform, you don't have to do this. Instead, look at the section below.
 ```
 $ npm install
 $ grunt
 ```
-Output in `build/inform.js`.
+Output in `build/inform.min.js`. Unminified in `build/inform.js`.
 
 ## Including Inform in your code
-Go to [here](https://raw.githubusercontent.com/sliceofcode/inform/master/build/inform.min.js), click Raw, then copy the whole thing
+Go to [here](https://raw.githubusercontent.com/sliceofcode/inform/master/build/inform.min.js), then copy the whole thing
 and paste it **in the beginning of your script.**
