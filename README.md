@@ -9,7 +9,7 @@ Here is an example:
 // cooperation.js
 function newLevel() {
   inform.scripts().find('my_awesome_thing.js')
-    .call('hookMethod', ['some argument', 'other argument']); 
+    .call('hookMethod', ['some argument', 'other argument']);
 }
 ```
 
@@ -65,11 +65,15 @@ That code checks if `newLevel` is present in `other_script.js`.
 
 ## Building
 Make sure that you have `npm`, `node`, and Grunt installed. If you just want to use Inform, you don't have to do this. Instead, look at the section below.
-```
+```sh
 $ npm install
 $ grunt
 ```
 Output in `build/inform.min.js`. Unminified in `build/inform.js`.
+If you want to build the tests too, you will have to run this instead:
+```sh
+$ grunt develop
+```
 
 ## Including Inform in your code
 Go to [here](https://raw.githubusercontent.com/sliceofcode/inform/master/build/inform.min.js), then copy the whole thing
