@@ -4,6 +4,14 @@ module.exports = function(grunt) {
 
     // Initialize configuration
     grunt.initConfig({
+        eslint: {
+          options: {
+            rules: {
+              indent: [2, 2]
+            }
+          },
+          target: ['src/core/inform.js', 'src/core/**/*.js', 'src/cooperate/**/*.js']
+        },
         concat: {
             options: {
                 separator: ';/*N*/'
@@ -31,5 +39,5 @@ module.exports = function(grunt) {
     });
 
     // Register tasks
-    grunt.registerTask('default', ['concat', 'uglify']);
+    grunt.registerTask('default', ['eslint', 'concat', 'uglify']);
 };

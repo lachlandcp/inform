@@ -1,16 +1,16 @@
 // Inform core
 
 var inform = {
-    /**
-     * The version of Inform.
-     * @type {String}
-     */
-    VERSION: '0.0.1'
+  /**
+   * The version of Inform.
+   * @type {String}
+   */
+  VERSION: '0.0.1'
 };
 ;/*N*//*global net,inform,org*/
 
 function InformScriptWrapper(script) {
-    this.script = script;
+  this.script = script;
 }
 
 /**
@@ -19,8 +19,8 @@ function InformScriptWrapper(script) {
  * @return {Boolean} isDefined Is it defined?
  */
 InformScriptWrapper.prototype.defined = function(name) {
-    var scope = this.script.scope;
-    return org.mozilla.javascript.ScriptableObject.hasProperty(scope, name);
+  var scope = this.script.scope;
+  return org.mozilla.javascript.ScriptableObject.hasProperty(scope, name);
 };
 
 /**
@@ -28,7 +28,7 @@ InformScriptWrapper.prototype.defined = function(name) {
  * @return {ScriptState} The ScriptState
  */
 InformScriptWrapper.prototype.real = function() {
-    return this.script;
+  return this.script;
 };
 
 /**
@@ -37,9 +37,9 @@ InformScriptWrapper.prototype.real = function() {
  * @param {Object} value The new value
  */
 InformScriptWrapper.prototype.set = function(name, value) {
-    org.mozilla.javascript.ScriptableObject.putProperty(
-        this.scope(), name, value
-    );
+  org.mozilla.javascript.ScriptableObject.putProperty(
+      this.scope(), name, value
+      );
 };
 
 /**
@@ -47,7 +47,7 @@ InformScriptWrapper.prototype.set = function(name, value) {
  * @return {String} Name of this script.
  */
 InformScriptWrapper.prototype.name = function() {
-    return this.script.name;
+  return this.script.name;
 };
 
 /**
@@ -57,9 +57,9 @@ InformScriptWrapper.prototype.name = function() {
  * @return {Object} objects What is returned by that function.
  */
 InformScriptWrapper.prototype.call = function(name, args) {
-    return org.mozilla.javascript.ScriptableObject.callMethod(
-        this.scope(), name, args
-    );
+  return org.mozilla.javascript.ScriptableObject.callMethod(
+      this.scope(), name, args
+      );
 };
 
 /**
@@ -68,8 +68,8 @@ InformScriptWrapper.prototype.call = function(name, args) {
  * @return {Object}      The value
  */
 InformScriptWrapper.prototype.get = function(name) {
-    return org.mozilla.javascript.ScriptableObject.getProperty(
-        this.scope(), name);
+  return org.mozilla.javascript.ScriptableObject.getProperty(
+      this.scope(), name);
 };
 
 /**
@@ -77,7 +77,7 @@ InformScriptWrapper.prototype.get = function(name) {
  * @return {ScriptableObject} The scope of the script
  */
 InformScriptWrapper.prototype.scope = function() {
-    return this.script.scope;
+  return this.script.scope;
 };
 
 /**
@@ -87,12 +87,12 @@ InformScriptWrapper.prototype.scope = function() {
  * @return {[type]} [description]
  */
 inform.cooperateAll = function() {
-    var scriptsArrayList = net.zhuoweizhang.mcpelauncher.ScriptManager.scripts;
-    var scriptsArray = [];
-    for (var i = 0; i < scriptsArrayList.size(); i++) {
-        scriptsArray.push(new InformScriptWrapper(scriptsArrayList.get(i)));
-    }
-    return scriptsArray;
+  var scriptsArrayList = net.zhuoweizhang.mcpelauncher.ScriptManager.scripts;
+  var scriptsArray = [];
+  for (var i = 0; i < scriptsArrayList.size(); i++) {
+    scriptsArray.push(new InformScriptWrapper(scriptsArrayList.get(i)));
+  }
+  return scriptsArray;
 };
 
 /**
@@ -102,14 +102,30 @@ inform.cooperateAll = function() {
  * @return {InformScriptWrapper} wrapper The wrapper.      
  */
 inform.cooperateFind = function(name) {
-    var all = inform.scripts().all();
-    for (var i = 0; i != all.length; i++) {
-        if (all[i].name() == name) {
-            return all[i];
-        }
+  var all = inform.scripts().all();
+  for (var i = 0; i != all.length; i++) {
+    if (all[i].name() == name) {
+      return all[i];
     }
+  }
 
-    return null;
+  return null;
+};
+
+/**
+ * Expects a script to be found.
+ * Returns `true` if it is found.
+ * @param {String} name The name of the script
+ * @return {Boolean} exists Is the script present?
+ */
+inform.cooperateExpect = function(name) {
+  var all = inform.scripts().all();
+  for (var i = 0; i != all.length; i++) {
+    if (all[i].name() === name()) {
+      return true;
+    }
+  }
+  return false;
 };
 
 /**
@@ -121,8 +137,9 @@ inform.cooperateFind = function(name) {
  * @return {[type]} [description]
  */
 inform.scripts = function() {
-    return {
-        all: inform.cooperateAll,
-        find: inform.cooperateFind
-    };
+  return {
+    all: inform.cooperateAll,
+    find: inform.cooperateFind,
+    expect: inform.cooperateExpect
+  };
 };
