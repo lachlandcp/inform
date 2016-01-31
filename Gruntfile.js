@@ -4,27 +4,19 @@ module.exports = function(grunt) {
 
     // Initialize configuration
     grunt.initConfig({
-        eslint: {
-          options: {
-            rules: {
-              indent: [2, 2]
-            }
-          },
-          target: [
-            'src/core/inform.js',
-            'src/core/**/*.js',
-            'src/cooperate/**/*.js'
-          ]
+        coffeelint: {
+          app: ['src/**/*.coffee']
         },
-        concat: {
+        coffee: {
           production: {
             options: {
-              separator: ';'
+              bare: true,
+              join: true
             },
             src: [
-              'src/core/inform.js',
-              'src/core/**/*.js',
-              'src/cooperate/**/*.js'
+              'src/core/inform.coffee',
+              'src/core/**/*.coffee',
+              'src/cooperate/**/*.coffee'
             ],
             dest: 'build/inform.js'
           },
@@ -33,15 +25,14 @@ module.exports = function(grunt) {
               separator: ';'
             },
             src: [
-              'src/core/inform.js',
-              'src/core/**/*.js',
-              'src/cooperate/**/*.js',
-              'src/test/**/*.js'
+              'src/core/inform.coffee',
+              'src/core/**/*.coffee',
+              'src/cooperate/**/*.coffee',
+              'src/test/**/*.coffee'
             ],
             dest: 'build/inform.develop.js'
           }
         },
-
         uglify: {
           production: {
             options: {
@@ -63,7 +54,15 @@ module.exports = function(grunt) {
     });
 
     // Register tasks
-    grunt.registerTask('default', ['eslint', 'concat:production', 'uglify:production']);
-    grunt.registerTask('develop', ['eslint', 'concat:development',
-      'uglify:development']);
+    grunt.registerTask('default', [
+      'coffeelint',
+      'coffee:production',
+      'uglify:production'
+    ]);
+
+    grunt.registerTask('develop', [
+      'coffeelint',
+      'coffee:development',
+      'uglify:development'
+    ]);
 };

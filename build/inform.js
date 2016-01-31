@@ -1,84 +1,50 @@
-// Inform core
+var InformScriptWrapper, inform;
 
-var inform = {
-  /**
-   * The version of Inform.
-   * @type {String}
-   */
+inform = {
   VERSION: '0.0.1'
-};
-;/*global net,inform,org*/
 
-function InformScriptWrapper(script) {
-  this.script = script;
-}
-
-/**
- * Checks whether something is defined in this script.
- * @param  {String} name The name of the thing.
- * @return {Boolean} isDefined Is it defined?
- */
-InformScriptWrapper.prototype.defined = function(name) {
-  var scope = this.script.scope;
-  return org.mozilla.javascript.ScriptableObject.hasProperty(scope, name);
+  /*global net,inform,org */
 };
 
-/**
- * Returns the real thing, a.k.a ScriptState
- * @return {ScriptState} The ScriptState
- */
-InformScriptWrapper.prototype.real = function() {
-  return this.script;
-};
+InformScriptWrapper = (function() {
+  function InformScriptWrapper(script1) {
+    this.script = script1;
+  }
 
-/**
- * Sets something on the scope.
- * @param {String} name  The name of the value
- * @param {Object} value The new value
- */
-InformScriptWrapper.prototype.set = function(name, value) {
-  org.mozilla.javascript.ScriptableObject.putProperty(
-      this.scope(), name, value
-      );
-};
+  InformScriptWrapper.prototype.defined = function(name) {
+    var scope;
+    scope = this.script.scope;
+    return org.mozilla.javascript.ScriptableObject.hasProperty(scope, name);
+  };
 
-/**
- * Returns the name of this script.
- * @return {String} Name of this script.
- */
-InformScriptWrapper.prototype.name = function() {
-  return this.script.name;
-};
+  InformScriptWrapper.prototype.real = function() {
+    return this.script;
+  };
 
-/**
- * Calls a function in this script's scope.
- * @param  {String} name The name of the function
- * @param  {Object[]} args The arguments to be passed
- * @return {Object} objects What is returned by that function.
- */
-InformScriptWrapper.prototype.call = function(name, args) {
-  return org.mozilla.javascript.ScriptableObject.callMethod(
-      this.scope(), name, args
-      );
-};
+  InformScriptWrapper.prototype.set = function(name, value) {
+    return org.mozilla.javascript.ScriptableObject.putProperty(this.scope(), name, value);
+  };
 
-/**
- * Returns something from the scope of the script.
- * @param  {String} name The name of the thing to get.
- * @return {Object}      The value
- */
-InformScriptWrapper.prototype.get = function(name) {
-  return org.mozilla.javascript.ScriptableObject.getProperty(
-      this.scope(), name);
-};
+  InformScriptWrapper.prototype.name = function() {
+    return this.script.name;
+  };
 
-/**
- * Returns the scope of the script.
- * @return {ScriptableObject} The scope of the script
- */
-InformScriptWrapper.prototype.scope = function() {
-  return this.script.scope;
-};
+  InformScriptWrapper.prototype.call = function(name, args) {
+    return org.mozilla.javascript.ScriptableObject.callMethod(this.scope(), name, args);
+  };
+
+  InformScriptWrapper.prototype.get = function(name) {
+    return org.mozilla.javascript.ScriptableObject.getProperty(this.scope(), name);
+  };
+
+  InformScriptWrapper.prototype.scope = function() {
+    return this.script.scope;
+  };
+
+  return InformScriptWrapper;
+
+})();
+
 
 /**
  * Returns all ScriptState(s) converted to InformScriptWrappers as an array.
@@ -86,31 +52,40 @@ InformScriptWrapper.prototype.scope = function() {
  * but here we convert them to an array.
  * @return {[type]} [description]
  */
+
 inform.cooperateAll = function() {
-  var scriptsArrayList = net.zhuoweizhang.mcpelauncher.ScriptManager.scripts;
-  var scriptsArray = [];
-  for (var i = 0; i < scriptsArrayList.size(); i++) {
+  var i, scriptsArray, scriptsArrayList;
+  scriptsArrayList = net.zhuoweizhang.mcpelauncher.ScriptManager.scripts;
+  scriptsArray = [];
+  i = 0;
+  while (i < scriptsArrayList.size()) {
     scriptsArray.push(new InformScriptWrapper(scriptsArrayList.get(i)));
+    i++;
   }
   return scriptsArray;
 };
 
+
 /**
  * Finds a script by it's name and returns
- * a InformScriptWrapper of it. 
+ * a InformScriptWrapper of it.
  * @param  {String} name The name of the script.
- * @return {InformScriptWrapper} wrapper The wrapper.      
+ * @return {InformScriptWrapper} wrapper The wrapper.
  */
+
 inform.cooperateFind = function(name) {
-  var all = inform.scripts().all();
-  for (var i = 0; i != all.length; i++) {
-    if (all[i].name() == name) {
+  var all, j, len, script;
+  all = inform.scripts().all();
+  for (j = 0, len = all.length; j < len; j++) {
+    script = all[j];
+    if (script.name() === name) {
       return all[i];
     }
+    i++;
   }
-
   return null;
 };
+
 
 /**
  * Expects a script to be found.
@@ -118,15 +93,20 @@ inform.cooperateFind = function(name) {
  * @param {String} name The name of the script
  * @return {Boolean} exists Is the script present?
  */
+
 inform.cooperateExpect = function(name) {
-  var all = inform.scripts().all();
-  for (var i = 0; i != all.length; i++) {
+  var all, j, len, script;
+  all = inform.scripts().all();
+  for (j = 0, len = all.length; j < len; j++) {
+    script = all[j];
     if (all[i].name() === name()) {
       return true;
     }
+    i++;
   }
   return false;
 };
+
 
 /**
  * Main entrance.
@@ -136,6 +116,7 @@ inform.cooperateExpect = function(name) {
  *     .defined("someVariable");
  * @return {[type]} [description]
  */
+
 inform.scripts = function() {
   return {
     all: inform.cooperateAll,
