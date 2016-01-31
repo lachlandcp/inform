@@ -8,8 +8,8 @@ Here is an example:
 ```js
 // cooperation.js
 function newLevel() {
-    inform.scripts().find('my_awesome_thing.js')
-        .call('hookMethod', ['some argument', 'other argument']); 
+  inform.scripts().find('my_awesome_thing.js')
+    .call('hookMethod', ['some argument', 'other argument']); 
 }
 ```
 
@@ -26,12 +26,22 @@ function hookMethod(msg1, msg2) {
 
 Then that means that `"some argument other argument"` would be printed out to chat.
 
+### Expect another script to exist
+Using cooperation, you can **expect** another script to exist.
+This can be handy if your script is supposed to work with other scripts that
+are supposed to exist, or else your script will not function correctly.
+
+```js
+function newLevel() {
+  inform.scripts().expect('lib.js'); // returns true if found, else returns false
+```
+
 ### Setting/getting values in other scripts
 Using cooperation, you can also set values in other scripts.
 
 ```js
 function newLevel() {
-    inform.scripts().find('other_script.js').set('someVariable', 2);
+  inform.scripts().find('other_script.js').set('someVariable', 2);
 }
 ```
 
