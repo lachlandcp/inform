@@ -34,6 +34,7 @@ are supposed to exist, or else your script will not function correctly.
 ```js
 function newLevel() {
   inform.scripts().expect('lib.js'); // returns true if found, else returns false
+}
 ```
 
 ### Setting/getting values in other scripts
