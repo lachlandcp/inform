@@ -50,6 +50,17 @@ module.exports = function(grunt) {
             src: 'build/inform.develop.js',
             dest: 'build/inform.develop.min.js'
           }
+        },
+        'ftp-deploy': {
+          build: {
+            auth: {
+              host: process.env.FTP_PHONE_IP,
+              port: process.env.FTP_PHONE_PORT,
+              authKey: 'key1'
+            },
+            src: 'build/',
+            dest: '/_Scripts'
+          }
         }
     });
 
@@ -64,5 +75,9 @@ module.exports = function(grunt) {
       'coffeelint',
       'coffee:development',
       'uglify:development'
+    ]);
+
+    grunt.registerTask('ftp', [
+      'develop', 'ftp-deploy'
     ]);
 };
