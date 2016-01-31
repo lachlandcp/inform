@@ -7,7 +7,7 @@ var inform = {
    */
   VERSION: '0.0.1'
 };
-;/*N*//*global net,inform,org*/
+;/*global net,inform,org*/
 
 function InformScriptWrapper(script) {
   this.script = script;

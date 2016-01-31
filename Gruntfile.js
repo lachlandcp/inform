@@ -10,34 +10,60 @@ module.exports = function(grunt) {
               indent: [2, 2]
             }
           },
-          target: ['src/core/inform.js', 'src/core/**/*.js', 'src/cooperate/**/*.js']
+          target: [
+            'src/core/inform.js',
+            'src/core/**/*.js',
+            'src/cooperate/**/*.js'
+          ]
         },
         concat: {
+          production: {
             options: {
-                separator: ';/*N*/'
+              separator: ';'
             },
-            dist: {
-                // Specifices ordering
-                // Core always goes first
-                src: ['src/core/inform.js', 'src/core/**/*.js', 'src/cooperate/**/*.js'//,
-                    // 'src/test/**/*.js'
-                ],
-                dest: 'build/inform.js'
-            }
+            src: [
+              'src/core/inform.js',
+              'src/core/**/*.js',
+              'src/cooperate/**/*.js'
+            ],
+            dest: 'build/inform.js'
+          },
+          development: {
+            options: {
+              separator: ';'
+            },
+            src: [
+              'src/core/inform.js',
+              'src/core/**/*.js',
+              'src/cooperate/**/*.js',
+              'src/test/**/*.js'
+            ],
+            dest: 'build/inform.develop.js'
+          }
         },
 
         uglify: {
+          production: {
             options: {
                 mangle: false,
-                banner: '/* inform by @sliceofcode, licensed under MIT license, (c) 2015 sliceofcode | http://github.com/sliceofcode/inform */\n'
+                banner: '/* inform by @sliceofcode, licensed under MIT license, (c) 2016 sliceofcode | http://github.com/sliceofcode/inform */\n'
             },
-            dist: {
-                src: 'build/inform.js',
-                dest: 'build/inform.min.js'
-            }
+            src: 'build/inform.js',
+            dest: 'build/inform.min.js'
+          },
+          development: {
+            options: {
+              mangle: true,
+              banner: '/* inform (dev) by @sliceofcode, licensed under MIT license, (c) 2016 sliceofcode */\n'
+            },
+            src: 'build/inform.develop.js',
+            dest: 'build/inform.develop.min.js'
+          }
         }
     });
 
     // Register tasks
-    grunt.registerTask('default', ['eslint', 'concat', 'uglify']);
+    grunt.registerTask('default', ['eslint', 'concat:production', 'uglify:production']);
+    grunt.registerTask('develop', ['eslint', 'concat:development',
+      'uglify:development']);
 };
