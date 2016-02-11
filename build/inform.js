@@ -74,35 +74,52 @@ inform.cooperateAll = function() {
  */
 
 inform.cooperateFind = function(name) {
-  var all, j, len, script;
-  all = inform.scripts().all();
-  for (j = 0, len = all.length; j < len; j++) {
-    script = all[j];
-    if (script.name() === name) {
-      return all[i];
+  var j, len, ref, script;
+  ref = inform.scripts().all();
+  for (j = 0, len = ref.length; j < len; j++) {
+    script = ref[j];
+    clientMessage("FIND: Looking @ " + script + " (" + (script.name()) + ")");
+    clientMessage("FIND: " + (script.name()) + " is " + name + "???");
+    if (script.name() == name) {
+      return script;
     }
-    i++;
   }
   return null;
 };
 
 
 /**
- * Expects a script to be found.
- * Returns `true` if it is found.
+ * Expects a script to be found, throws an error if it isn't found.
  * @param {String} name The name of the script
- * @return {Boolean} exists Is the script present?
  */
 
 inform.cooperateExpect = function(name) {
-  var all, j, len, script;
-  all = inform.scripts().all();
-  for (j = 0, len = all.length; j < len; j++) {
-    script = all[j];
-    if (all[i].name() === name()) {
+  var j, len, ref, script;
+  ref = inform.scripts().all();
+  for (j = 0, len = ref.length; j < len; j++) {
+    script = ref[j];
+    if (script.name() === name) {
       return true;
     }
-    i++;
+  }
+  throw new Error("Expected to find " + name + ", but it wasn't present");
+};
+
+
+/**
+ * Returns whether a script could be found.
+ * @param  {String} name The filename of the script
+ * @return {Boolean}      Is the script present?
+ */
+
+inform.cooperateHas = function(name) {
+  var j, len, ref, script;
+  ref = inform.scripts().all();
+  for (j = 0, len = ref.length; j < len; j++) {
+    script = ref[j];
+    if (script.name() === name) {
+      return true;
+    }
   }
   return false;
 };
@@ -121,6 +138,7 @@ inform.scripts = function() {
   return {
     all: inform.cooperateAll,
     find: inform.cooperateFind,
-    expect: inform.cooperateExpect
+    expect: inform.cooperateExpect,
+    has: inform.cooperateHas
   };
 };

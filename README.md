@@ -31,10 +31,22 @@ Using cooperation, you can **expect** another script to exist.
 This can be handy if your script is supposed to work with other scripts that
 are supposed to exist, or else your script will not function correctly.
 
+If the script you are trying to find does not exist, then Inform will throw
+an error.
+
 ```js
 function newLevel() {
-  inform.scripts().expect('lib.js'); // returns true if found, else returns false
+  inform.scripts().expect('lib.js'); // throws an error if it's not found
 }
+```
+
+### Check if another script exists
+You can also check if another script exists, using `has()`.
+
+```js
+// ...
+inform.scripts().has('file.js'); // returns true if it is found!
+// ...
 ```
 
 ### Setting/getting values in other scripts
@@ -53,6 +65,10 @@ You can also get variables:
 ```js
 inform.scripts().find('other_script.js').get('someVariable');
 ```
+
+**IMPORTANT NOTE!!**
+
+You should use `==` instead of `===` when comparing fetched variables because their type (are usually) not preserved.
 
 ### Checking for defined things
 You can also check if something is defined in another script:

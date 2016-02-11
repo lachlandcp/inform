@@ -5,7 +5,12 @@ module.exports = function(grunt) {
     // Initialize configuration
     grunt.initConfig({
         coffeelint: {
-          app: ['src/**/*.coffee']
+          app: ['src/**/*.coffee'],
+          options: {
+            'no_backticks': {
+              'level': 'ignore'
+            }
+          }
         },
         coffee: {
           production: {
@@ -22,7 +27,9 @@ module.exports = function(grunt) {
           },
           development: {
             options: {
-              separator: ';'
+              separator: ';',
+              bare: true,
+              join: true
             },
             src: [
               'src/core/inform.coffee',

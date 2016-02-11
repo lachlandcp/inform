@@ -56,27 +56,34 @@ inform.cooperateAll = ->
 ###
 
 inform.cooperateFind = (name) ->
-  all = inform.scripts().all()
-  for script in all
-    if script.name() is name
-      return all[i]
-    i++
+  for script in inform.scripts().all()
+    clientMessage "FIND: Looking @ #{script} (#{script.name()})"
+    clientMessage "FIND: #{script.name()} is #{name}???"
+    if `script.name() == name`
+      return script
   null
 
 ###*
-# Expects a script to be found.
-# Returns `true` if it is found.
+# Expects a script to be found, throws an error if it isn't found.
 # @param {String} name The name of the script
-# @return {Boolean} exists Is the script present?
 ###
 
 inform.cooperateExpect = (name) ->
-  all = inform.scripts().all()
-  for script in all
-    if all[i].name() is name()
+  for script in inform.scripts().all()
+    if script.name() is name
       return true
-    i++
-  false
+  throw new Error "Expected to find #{name}, but it wasn't present"
+
+###*
+ * Returns whether a script could be found.
+ * @param  {String} name The filename of the script
+ * @return {Boolean}      Is the script present?
+###
+inform.cooperateHas = (name) ->
+  for script in inform.scripts().all()
+    if script.name() is name
+      return true
+  return false
 
 ###*
 # Main entrance.
@@ -92,4 +99,5 @@ inform.scripts = ->
     all: inform.cooperateAll
     find: inform.cooperateFind
     expect: inform.cooperateExpect
+    has: inform.cooperateHas
   }
