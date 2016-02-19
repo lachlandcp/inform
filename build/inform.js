@@ -30,6 +30,9 @@ InformScriptWrapper = (function() {
   };
 
   InformScriptWrapper.prototype.call = function(name, args) {
+    if (args == null) {
+      args = [];
+    }
     return org.mozilla.javascript.ScriptableObject.callMethod(this.scope(), name, args);
   };
 
