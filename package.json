@@ -2,7 +2,7 @@
   "name": "inform",
   "description": "A library for ModPE scripts.",
   "license": "MIT",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "devDependencies": {
     "coffee-script": "^1.10.0",
     "coffeelint": "^1.14.2",
