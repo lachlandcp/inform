@@ -89,7 +89,7 @@ inform.cooperateHas = (name) ->
 # Main entrance.
 #
 # Example:
-# inform.scripts.find("somescript.js")
+# inform.scripts().find("somescript.js")
 #     .defined("someVariable");
 # @return {[type]} [description]
 ###
