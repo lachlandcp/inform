@@ -127,21 +127,25 @@ inform.cooperateHas = function(name) {
   return false;
 };
 
+inform._scripts = {
+  all: inform.cooperateAll,
+  find: inform.cooperateFind,
+  expect: inform.cooperateExpect,
+  has: inform.cooperateHas
+};
+
 
 /**
  * Main entrance.
  *
  * Example:
- * inform.scripts.find("somescript.js")
+ * inform.scripts().find("somescript.js")
  *     .defined("someVariable");
  * @return {[type]} [description]
  */
 
 inform.scripts = function() {
-  return {
-    all: inform.cooperateAll,
-    find: inform.cooperateFind,
-    expect: inform.cooperateExpect,
-    has: inform.cooperateHas
-  };
+  return inform._scripts;
 };
+
+module.exports = inform._scripts;

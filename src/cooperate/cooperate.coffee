@@ -85,12 +85,11 @@ inform.cooperateHas = (name) ->
       return true
   return false
 
-inform._scripts = {
-	all: inform.cooperateAll
+inform._scripts =
+    all: inform.cooperateAll
     find: inform.cooperateFind
     expect: inform.cooperateExpect
     has: inform.cooperateHas
-}
 
 ###*
 # Main entrance.
