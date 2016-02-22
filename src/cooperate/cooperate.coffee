@@ -85,19 +85,21 @@ inform.cooperateHas = (name) ->
       return true
   return false
 
-###*
-# Main entrance.
-#
-# Example:
-# inform.scripts.find("somescript.js")
-#     .defined("someVariable");
-# @return {[type]} [description]
-###
-
-inform.scripts = ->
-  {
+inform._scripts =
     all: inform.cooperateAll
     find: inform.cooperateFind
     expect: inform.cooperateExpect
     has: inform.cooperateHas
-  }
+
+###*
+# Main entrance.
+#
+# Example:
+# inform.scripts().find("somescript.js")
+#     .defined("someVariable");
+# @return {[type]} [description]
+###
+
+inform.scripts = -> inform._scripts
+
+module.exports = inform._scripts
