@@ -85,6 +85,13 @@ inform.cooperateHas = (name) ->
       return true
   return false
 
+inform._scripts = {
+	all: inform.cooperateAll
+    find: inform.cooperateFind
+    expect: inform.cooperateExpect
+    has: inform.cooperateHas
+}
+
 ###*
 # Main entrance.
 #
@@ -94,10 +101,6 @@ inform.cooperateHas = (name) ->
 # @return {[type]} [description]
 ###
 
-inform.scripts = ->
-  {
-    all: inform.cooperateAll
-    find: inform.cooperateFind
-    expect: inform.cooperateExpect
-    has: inform.cooperateHas
-  }
+inform.scripts = -> inform._scripts
+
+module.exports = inform._scripts
