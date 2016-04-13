@@ -22,6 +22,7 @@ class InformScriptWrapper
 
   # Calls a function in this script's scope.
   call: (name, args = []) ->
+    args = [args] if typeof args is 'string'
     org.mozilla.javascript.ScriptableObject.callMethod @scope(), name, args
 
   # Returns something in this script's state.

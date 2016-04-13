@@ -33,6 +33,9 @@ InformScriptWrapper = (function() {
     if (args == null) {
       args = [];
     }
+    if (typeof args === 'string') {
+      args = [args];
+    }
     return org.mozilla.javascript.ScriptableObject.callMethod(this.scope(), name, args);
   };
 
