@@ -3,7 +3,7 @@
   "description": "A library for ModPE scripts.",
   "license": "MIT",
   "version": "1.0.0",
-	"main": "build/inform.js",
+  "main": "build/inform.js",
   "devDependencies": {
     "coffee-script": "^1.10.0",
     "coffeelint": "^1.14.2",
